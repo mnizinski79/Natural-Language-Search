@@ -1,0 +1,210 @@
+<div class="chat-container" 
+     [class.collapsed]="isCollapsed"
+     role="log" 
+     aria-live="polite" 
+     aria-label="Conversation history">
+  
+  <!-- Collapsed view - shows only most recent message -->
+  <div class="collapsed-content" *ngIf="isCollapsed && messages.length > 0">
+    <div class="most-recent-message">
+      <div class="message-wrapper"
+           [class.user-message]="messages[messages.length - 1].sender === 'user'"
+           [class.ai-message]="messages[messages.length - 1].sender === 'ai'">
+        <div class="message-bubble"
+             [class.user-bubble]="messages[messages.length - 1].sender === 'user'"
+             [class.ai-bubble]="messages[messages.length - 1].sender === 'ai'">
+          <p class="message-text" [innerHTML]="messages[messages.length - 1].text | markdown"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expanded view - shows all messages -->
+  <div #messagesList class="messages-list" *ngIf="!isCollapsed">
+    <div *ngFor="let message of messages" 
+         class="message-wrapper"
+         [class.user-message]="message.sender === 'user'"
+         [class.ai-message]="message.sender === 'ai'"
+         role="article"
+         [attr.aria-label]="message.sender === 'user' ? 'Your message' : 'AI assistant message'">
+      
+      <div class="message-bubble"
+           [class.user-bubble]="message.sender === 'user'"
+           [class.ai-bubble]="message.sender === 'ai'">
+        <p class="message-text" [innerHTML]="message.text | markdown"></p>
+      </div>
+
+      <!-- AI response chips -->
+      <div *ngIf="message.sender === 'ai' && message.chips && message.chips.length > 0" 
+           class="ai-chips-container">
+        <button 
+          *ngFor="let chip of message.chips"
+          class="ai-chip"
+          (click)="onChipClick(chip)"
+          [attr.aria-label]="'Select ' + chip">
+          {{ chip }}
+        </button>
+      </div>
+
+      <!-- Inline hotel cards for mobile -->
+      <div *ngIf="message.sender === 'ai' && isMobile && message.hotels && message.hotels.length > 0" 
+           class="inline-hotels"
+           role="region"
+           aria-label="Hotel search results">
+        <div class="inline-hotels-container">
+          <app-hotel-card 
+            *ngFor="let hotel of getInlineHotels(message)"
+            [hotel]="hotel"
+            [variant]="'mobile'"
+            (cardClicked)="onCardClick($event)">
+          </app-hotel-card>
+        </div>
+      </div>
+
+      <!-- View All button for mobile (only show for 4+ hotels) -->
+      <div *ngIf="message.sender === 'ai' && isMobile && message.hotels && message.hotels.length > 3" 
+           class="view-all-container">
+        <button class="view-all-button" (click)="onExpandMapClick()" aria-label="View all hotels on map">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+          </svg>
+          <span>View All on Map</span>
+        </button>
+      </div>
+
+      <!-- Date picker button for small result sets -->
+      <div *ngIf="message.sender === 'ai' && message.showDatePicker && !isDatePickerVisible(message.id)" 
+           class="date-picker-prompt">
+        <p class="date-prompt-text">{{ getDatePromptMessage(message) }}</p>
+        <button class="select-dates-button" 
+                (click)="onSelectDatesClick(message.id)"
+                aria-label="Open date picker to select check-in and check-out dates">
+          Select Dates →
+        </button>
+      </div>
+
+      <!-- Date picker component -->
+      <div *ngIf="message.sender === 'ai' && isDatePickerVisible(message.id)" 
+           class="date-picker-container">
+        <!-- Minimized view -->
+        <div *ngIf="isDatePickerMinimized(message.id)" 
+             class="date-picker-minimized"
+             (click)="expandDatePicker(message.id)">
+          <div class="minimized-header">
+            <span class="minimized-dates-text">{{ getMinimizedDatesText(message.id) }}</span>
+            <svg class="expand-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Expanded view -->
+        <app-date-picker
+          *ngIf="!isDatePickerMinimized(message.id)"
+          [visible]="true"
+          (datesSelected)="onDatesSelected($event, message.id)"
+          (cancelled)="onDatePickerCancelled(message.id)">
+        </app-date-picker>
+      </div>
+
+      <!-- Rate calendar component -->
+      <!-- Hotel header for rate calendar (separate inline element) -->
+      <div *ngIf="message.sender === 'ai' && message.showRateCalendar && message.rateCalendarHotel" 
+           class="inline-hotel-header">
+        <div class="hotel-chiclet">
+          <img 
+            [src]="getBrandLogo(message.rateCalendarHotel)" 
+            [alt]="message.rateCalendarHotel.brand"
+            class="chiclet-logo"
+            loading="lazy"
+          />
+        </div>
+        <h3 class="hotel-name">{{ message.rateCalendarHotel.name }}</h3>
+        <button 
+          class="hotel-details-button" 
+          (click)="onCardClick(message.rateCalendarHotel)"
+          aria-label="View hotel details">
+          <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Rate calendar container -->
+      <div *ngIf="message.sender === 'ai' && message.showRateCalendar && message.rateCalendarHotel" 
+           class="rate-calendar-container">
+        <!-- Minimized view -->
+        <div *ngIf="!isRateCalendarVisible(message.id)" 
+             class="rate-calendar-minimized"
+             (click)="expandRateCalendar(message.id)">
+          <div class="minimized-header">
+            <span class="minimized-dates-text">{{ getMinimizedDatesText(message.id) }}</span>
+            <svg class="expand-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Expanded view -->
+        <app-rate-calendar
+          *ngIf="isRateCalendarVisible(message.id)"
+          [visible]="true"
+          [inline]="true"
+          [hotel]="message.rateCalendarHotel"
+          [basePrice]="message.rateCalendarHotel.pricing.nightlyRate"
+          (dateSelected)="onRateCalendarDatesSelected($event, message.id)"
+          (closed)="onRateCalendarClosed(message.id)">
+        </app-rate-calendar>
+      </div>
+
+      <!-- Inline room cards for mobile -->
+      <div *ngIf="message.sender === 'ai' && isMobile && message.rooms && message.rooms.length > 0" 
+           class="inline-rooms"
+           role="region"
+           aria-label="Available rooms">
+        <!-- Hotel header for rooms (separate inline element) -->
+        <div class="inline-hotel-header" *ngIf="message.roomsHotel">
+          <div class="hotel-chiclet">
+            <img 
+              [src]="getBrandLogo(message.roomsHotel)" 
+              [alt]="message.roomsHotel.brand"
+              class="chiclet-logo"
+              loading="lazy"
+            />
+          </div>
+          <h3 class="hotel-name">{{ message.roomsHotel.name }}</h3>
+          <button 
+            class="hotel-details-button" 
+            (click)="onCardClick(message.roomsHotel)"
+            aria-label="View hotel details">
+            <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Room cards container -->
+        <div class="inline-rooms-container">
+          <app-room-card 
+            *ngFor="let room of getInlineRooms(message)"
+            [room]="room"
+            [variant]="'mobile'"
+            (roomSelected)="onRoomCardClick($event)">
+          </app-room-card>
+        </div>
+
+        <!-- View All button -->
+        <div class="view-all-container" *ngIf="message.roomsHotel">
+          <button class="view-all-button" (click)="onViewAllRoomsClick(message.roomsHotel)" aria-label="View all available rooms">
+            View All →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thinking animation -->
+    <div *ngIf="isThinking" class="message-wrapper ai-message" role="status" aria-live="polite" aria-label="AI is thinking">
+      <app-thinking-animation [visible]="true"></app-thinking-animation>
+    </div>
+  </div>
+</div>

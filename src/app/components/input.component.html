@@ -1,0 +1,59 @@
+<form (submit)="onSubmit($event)" class="input-wrapper" role="search">
+  <label for="chat-input" class="sr-only">Search for hotels</label>
+  
+  <div class="input-pill" [class.has-context-tag]="contextTag">
+    <!-- Context tag inside input -->
+    <div class="context-tag" *ngIf="contextTag"
+         [style.background-color]="getContextTagBackgroundColor()"
+         [style.color]="getContextTagTextColor()">
+      <span class="context-tag-text">{{ contextTag }}</span>
+      <button 
+        type="button"
+        class="context-tag-remove"
+        [style.color]="getContextTagTextColor()"
+        (click)="removeContextTag()"
+        aria-label="Remove context tag">
+        ×
+      </button>
+    </div>
+    
+    <input
+      #inputField
+      id="chat-input"
+      type="text"
+      inputmode="text"
+      [(ngModel)]="inputValue"
+      [ngModelOptions]="{standalone: true}"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      class="input-field"
+      [class.with-context-tag]="contextTag"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="none"
+      spellcheck="false"
+      enterkeyhint="send"
+      aria-label="Search for hotels in New York City"
+      aria-describedby="input-help"
+    />
+    <button
+      type="submit"
+      [disabled]="disabled || !inputValue.trim()"
+      class="send-button"
+      [class.has-text]="inputValue.trim()"
+      aria-label="Send message"
+      [attr.aria-disabled]="disabled || !inputValue.trim()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="send-icon"
+        aria-hidden="true"
+      >
+        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+      </svg>
+    </button>
+  </div>
+  <span id="input-help" class="sr-only">Enter your hotel search query and press send or enter</span>
+</form>

@@ -1,0 +1,181 @@
+<!-- Drawer container -->
+<div 
+  #drawerContainer
+  *ngIf="visible && hotel"
+  class="drawer"
+  [class.closing]="isClosing"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="drawer-title"
+>
+  <!-- Brand header -->
+  <div class="brand-header">
+    <div class="brand-info">
+      <div class="brand-chiclet">
+        <img 
+          [src]="getBrandLogo()" 
+          [alt]="hotel.brand"
+          class="chiclet-logo"
+          loading="lazy"
+        />
+      </div>
+      <h2 id="drawer-title" class="brand-name">{{ hotel.brand }}</h2>
+    </div>
+    <button
+      (click)="close()"
+      class="close-button"
+      aria-label="Close detail view"
+    >
+      <svg class="close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Scrollable content -->
+  <div class="drawer-content">
+    <!-- Photo gallery mosaic -->
+    <div class="photo-gallery">
+      <!-- Large hero image -->
+      <div class="hero-image">
+        <img 
+          [src]="hotel.imageUrls[0]" 
+          [alt]="hotel.name"
+          class="hero-img"
+          loading="lazy"
+        />
+      </div>
+      
+      <!-- Three thumbnail images -->
+      <div class="thumbnail-row">
+        <div 
+          *ngFor="let imageUrl of getThumbnailImages(); let i = index"
+          class="thumbnail-item"
+          (click)="currentImageIndex = i + 1"
+        >
+          <img [src]="imageUrl" [alt]="'Photo ' + (i + 2)" class="thumbnail-img" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Hotel info -->
+    <div class="hotel-info">
+      <!-- Rating pill -->
+      <div class="rating-pill">
+        <span class="star-icon" aria-hidden="true">★</span>
+        <span class="rating-value">{{ hotel.rating }}/5</span>
+      </div>
+
+      <!-- Hotel name -->
+      <h3 class="hotel-name">{{ hotel.name }}</h3>
+
+      <!-- Address with copy -->
+      <div class="address-container">
+        <p class="address-text">{{ hotel.location.address }}</p>
+        <button class="copy-button" aria-label="Copy address">
+          <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Description -->
+      <div class="section">
+        <h3 class="section-title">Description</h3>
+        <p class="description-text" [class.loading]="isLoadingDescription">{{ getDisplayDescription() }}</p>
+      </div>
+
+      <!-- Amenities -->
+      <div class="section">
+        <h3 class="section-title">Amenities</h3>
+        <div class="amenities-grid">
+          <div class="amenity-item" *ngFor="let amenity of getAmenitiesWithIcons()">
+            <span class="amenity-icon">{{ amenity.icon }}</span>
+            <span class="amenity-text">{{ amenity.name }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rooms - Hidden for now -->
+      <!-- <div class="section" *ngIf="hotelRooms.length > 0">
+        <h3 class="section-title">Rooms</h3>
+        <div class="rooms-scroll-container">
+          <app-room-card
+            *ngFor="let room of getDisplayRooms()"
+            [room]="room"
+            [variant]="'compact'"
+            [showPricing]="hasDates"
+            (roomSelected)="onRoomSelected($event)">
+          </app-room-card>
+        </div>
+      </div> -->
+
+      <!-- Location map -->
+      <div class="section">
+        <h3 class="section-title">Location</h3>
+        <div class="map-container">
+          <app-map
+            [hotels]="[hotel]"
+            [center]="[hotel.location.coordinates.lat, hotel.location.coordinates.lng]"
+            [zoom]="15"
+            [selectedHotelId]="hotel.id"
+            [isMobile]="false"
+          ></app-map>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="section">
+        <h3 class="section-title">What other guests have to say</h3>
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-stars">
+              <svg *ngFor="let star of [1,2,3,4,5]" class="review-star" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+              </svg>
+            </div>
+            <p class="review-author">mini_1996</p>
+            <p class="review-text">We arrived to a warm welcoming staff out front. They took our bags, parked our car. $88/ night...</p>
+          </div>
+          <div class="review-card">
+            <div class="review-stars">
+              <svg *ngFor="let star of [1,2,3,4,5]" class="review-star" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+              </svg>
+            </div>
+            <p class="review-author">luv_vaca_92</p>
+            <p class="review-text">We arrived to a warm welcoming staff out front. They took our bags, parked our car. $88/ night...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spacer for floating footer -->
+      <div class="footer-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Floating footer with conversational chips -->
+  <div class="floating-footer">
+    <p class="chips-label">Chat about...</p>
+    <div class="chips-container chips-full-width">
+      <button 
+        *ngFor="let chip of conversationalChips"
+        class="conversation-chip"
+        [style.background-color]="getBrandColor() + '33'"
+        (click)="onChipClick(chip)"
+        [attr.aria-label]="chip.label"
+      >
+        <img [src]="'assets/' + chip.icon + '.svg'" [alt]="chip.label" class="chip-icon" />
+        <span class="chip-label">{{ chip.label }}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Rate Calendar Modal -->
+<app-rate-calendar
+  [visible]="showRateCalendar"
+  [basePrice]="(hotel?.pricing?.nightlyRate) || 200"
+  (dateSelected)="onDateSelected($event)"
+  (closed)="onCalendarClosed()"
+></app-rate-calendar>

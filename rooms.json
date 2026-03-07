@@ -1,0 +1,244 @@
+[
+  {
+    "id": "room_voco_001",
+    "hotelId": "NYCXV",
+    "name": "Standard King Room",
+    "type": "Standard",
+    "bedType": "1 King Bed",
+    "maxOccupancy": 2,
+    "size": 250,
+    "amenities": ["Free WiFi", "Coffee Maker", "Smart TV", "Work Desk"],
+    "description": "Comfortable room with modern amenities and city views",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 276,
+      "totalRate": 318,
+      "taxesAndFees": 42
+    },
+    "availability": "available"
+  },
+  {
+    "id": "room_voco_002",
+    "hotelId": "NYCXV",
+    "name": "2 Queen Beds",
+    "type": "Standard",
+    "bedType": "2 Queen Beds",
+    "maxOccupancy": 4,
+    "size": 300,
+    "amenities": ["Free WiFi", "Mini Fridge", "Smart TV", "City View"],
+    "description": "Spacious room perfect for families or groups",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 276,
+      "totalRate": 318,
+      "taxesAndFees": 42
+    },
+    "availability": "available"
+  },
+  {
+    "id": "room_voco_003",
+    "hotelId": "NYCXV",
+    "name": "1 King High Floor",
+    "type": "Deluxe",
+    "bedType": "1 King Bed",
+    "maxOccupancy": 2,
+    "size": 280,
+    "amenities": ["Free WiFi", "High Floor", "City View", "Smart TV", "Work Desk"],
+    "description": "Elevated room on high floor with stunning city views",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 276,
+      "totalRate": 333,
+      "taxesAndFees": 57
+    },
+    "availability": "available"
+  },
+  {
+    "id": "room_kimpton_001",
+    "hotelId": "NYCEA",
+    "name": "Cozy Queen Room",
+    "type": "Standard",
+    "bedType": "1 Queen Bed",
+    "maxOccupancy": 2,
+    "size": 220,
+    "amenities": ["Free WiFi", "Yoga Mat", "Smart TV", "Mini Bar"],
+    "description": "Intimate room with Kimpton's signature style",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 289,
+      "totalRate": 335,
+      "taxesAndFees": 46
+    },
+    "availability": "available"
+  },
+  {
+    "id": "room_kimpton_002",
+    "hotelId": "NYCEA",
+    "name": "Deluxe King Room",
+    "type": "Deluxe",
+    "bedType": "1 King Bed",
+    "maxOccupancy": 2,
+    "size": 280,
+    "amenities": ["Free WiFi", "Yoga Mat", "City View", "Smart TV", "Sofa"],
+    "description": "Spacious room with separate seating area",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 329,
+      "totalRate": 380,
+      "taxesAndFees": 51
+    },
+    "availability": "limited",
+    "remainingRooms": 2
+  },
+  {
+    "id": "room_kimpton_003",
+    "hotelId": "NYCEA",
+    "name": "Kimpton Suite",
+    "type": "Suite",
+    "bedType": "1 King Bed",
+    "maxOccupancy": 3,
+    "size": 450,
+    "amenities": ["Free WiFi", "Separate Living Area", "City View", "Sofa Bed", "Mini Bar"],
+    "description": "Luxurious suite with living area and premium amenities",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 449,
+      "totalRate": 519,
+      "taxesAndFees": 70
+    },
+    "availability": "available"
+  },
+  {
+    "id": "room_intercontinental_001",
+    "hotelId": "NYCHC",
+    "name": "Classic King Room",
+    "type": "Standard",
+    "bedType": "1 King Bed",
+    "maxOccupancy": 2,
+    "size": 320,
+    "amenities": ["Free WiFi", "Marble Bathroom", "Smart TV", "Work Desk", "Mini Bar"],
+    "description": "Elegant room with luxury finishes",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 389,
+      "totalRate": 449,
+      "taxesAndFees": 60
+    },
+    "availability": "available"
+  },
+  {
+    "id": "room_intercontinental_002",
+    "hotelId": "NYCHC",
+    "name": "Deluxe Room with City View",
+    "type": "Deluxe",
+    "bedType": "1 King Bed",
+    "maxOccupancy": 2,
+    "size": 380,
+    "amenities": ["Free WiFi", "City View", "Marble Bathroom", "Smart TV", "Sofa"],
+    "description": "Premium room with panoramic city views",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 449,
+      "totalRate": 519,
+      "taxesAndFees": 70
+    },
+    "availability": "available"
+  },
+  {
+    "id": "room_intercontinental_003",
+    "hotelId": "NYCHC",
+    "name": "Executive Suite",
+    "type": "Suite",
+    "bedType": "1 King Bed",
+    "maxOccupancy": 3,
+    "size": 550,
+    "amenities": ["Free WiFi", "Separate Living Area", "City View", "Marble Bathroom", "Sofa Bed", "Mini Bar"],
+    "description": "Luxurious suite with separate living and sleeping areas",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 589,
+      "totalRate": 679,
+      "taxesAndFees": 90
+    },
+    "availability": "limited",
+    "remainingRooms": 1
+  },
+  {
+    "id": "room_holiday_001",
+    "hotelId": "NYCMA",
+    "name": "Standard Queen Room",
+    "type": "Standard",
+    "bedType": "1 Queen Bed",
+    "maxOccupancy": 2,
+    "size": 240,
+    "amenities": ["Free WiFi", "Coffee Maker", "Smart TV"],
+    "description": "Comfortable room with essential amenities",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 189,
+      "totalRate": 219,
+      "taxesAndFees": 30
+    },
+    "availability": "available"
+  },
+  {
+    "id": "room_holiday_002",
+    "hotelId": "NYCMA",
+    "name": "2 Queen Beds",
+    "type": "Standard",
+    "bedType": "2 Queen Beds",
+    "maxOccupancy": 4,
+    "size": 280,
+    "amenities": ["Free WiFi", "Coffee Maker", "Smart TV", "Mini Fridge"],
+    "description": "Family-friendly room with two queen beds",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 209,
+      "totalRate": 242,
+      "taxesAndFees": 33
+    },
+    "availability": "available"
+  },
+  {
+    "id": "room_holiday_003",
+    "hotelId": "NYCMA",
+    "name": "King Room with Sofa Bed",
+    "type": "Deluxe",
+    "bedType": "1 King Bed + Sofa Bed",
+    "maxOccupancy": 3,
+    "size": 300,
+    "amenities": ["Free WiFi", "Sofa Bed", "Smart TV", "Mini Fridge", "Microwave"],
+    "description": "Spacious room with additional sleeping space",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800&q=80"
+    ],
+    "pricing": {
+      "baseRate": 239,
+      "totalRate": 276,
+      "taxesAndFees": 37
+    },
+    "availability": "available"
+  }
+]

@@ -1,0 +1,60 @@
+<div 
+  class="room-card"
+  [class.room-card-desktop]="variant === 'desktop'"
+  [class.room-card-mobile]="variant === 'mobile'"
+  [class.room-card-compact]="variant === 'compact'"
+  [class.unavailable]="room.availability === 'unavailable'"
+  role="article"
+  [attr.aria-label]="room.name + ', ' + room.bedType + ', ' + room.pricing.totalRate + ' USD per night'"
+  (click)="onSelect()"
+>
+  <!-- Room Image -->
+  <div class="room-card-image">
+    <img 
+      [src]="room.imageUrls[0]" 
+      [alt]="room.name"
+      loading="lazy"
+    />
+    
+    <!-- Bed & Occupancy Chip (Top Left) -->
+    <div class="capacity-chip">
+      <svg class="bed-icon" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V7H1v10h2v-2h18v2h2v-7c0-2.21-1.79-4-4-4z"/>
+      </svg>
+      <span class="capacity-text">{{ getBedCount() }}</span>
+      <svg class="person-icon" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      </svg>
+      <span class="capacity-text">{{ room.maxOccupancy }}</span>
+    </div>
+  </div>
+
+  <!-- Room Info -->
+  <div class="room-card-content">
+    <!-- Room Name -->
+    <h3 class="room-name">{{ room.name }}</h3>
+
+    <!-- Room Description (only for non-compact) -->
+    <p *ngIf="variant !== 'compact'" class="room-description">{{ room.description }}</p>
+
+    <!-- Amenities (when pricing is hidden) -->
+    <div *ngIf="!showPricing" class="highlighted-amenities">
+      <div *ngFor="let amenity of getHighlightedAmenities()" class="amenity-item-compact">
+        <svg class="amenity-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        <span class="amenity-text-compact">{{ amenity }}</span>
+      </div>
+      <div *ngIf="room.amenities.length > 2" class="more-amenities">
+        + {{ room.amenities.length - 2 }} more
+      </div>
+    </div>
+
+    <!-- Price (when pricing is shown) -->
+    <div *ngIf="showPricing" class="room-price">
+      <div class="price-label">From <span class="price-strikethrough">{{ getStrikethroughPrice() }}</span></div>
+      <div class="price-main">{{ room.pricing.totalRate.toFixed(0) }} <span class="price-currency">USD / night</span></div>
+      <div class="price-breakdown">{{ room.pricing.baseRate.toFixed(0) }} room + {{ room.pricing.taxesAndFees.toFixed(0) }} fees</div>
+    </div>
+  </div>
+</div>

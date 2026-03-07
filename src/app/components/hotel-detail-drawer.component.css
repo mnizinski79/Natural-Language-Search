@@ -1,0 +1,523 @@
+/* Drawer */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 33%;
+  background-color: #ffffff;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.35s ease-out forwards;
+  will-change: transform;
+}
+
+.drawer.closing {
+  animation: slideOutRight 0.35s ease-out forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Brand header */
+.brand-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.brand-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-chiclet {
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  padding: 0;
+  border: none;
+}
+
+.chiclet-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+/* Close button */
+.close-button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.close-button:hover {
+  background-color: #f3f4f6;
+}
+
+.close-icon {
+  width: 24px;
+  height: 24px;
+  color: #6b7280;
+}
+
+/* Scrollable content */
+.drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.drawer-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.drawer-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.drawer-content::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 4px;
+}
+
+/* Photo gallery mosaic */
+.photo-gallery {
+  width: 100%;
+  padding: 0 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Hero image */
+.hero-image {
+  width: 100%;
+  height: 280px;
+  background-color: #f3f4f6;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Thumbnail row */
+.thumbnail-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.thumbnail-item {
+  width: 100%;
+  height: 120px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.thumbnail-item:first-child {
+  border-radius: 0 0 0 12px;
+}
+
+.thumbnail-item:last-child {
+  border-radius: 0 0 12px 0;
+}
+
+.thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.thumbnail-item:hover .thumbnail-img {
+  transform: scale(1.05);
+}
+
+/* Hotel info */
+.hotel-info {
+  padding: 0 24px 24px 24px;
+}
+
+/* Rating pill */
+.rating-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #F5F5F5;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.rating-pill .star-icon {
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.rating-pill .rating-value {
+  font-size: 12px;
+  color: #111827;
+  font-weight: 500;
+}
+
+/* Hotel name */
+.hotel-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+/* Address */
+.address-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.address-text {
+  flex: 1;
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.copy-button {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  transition: color 0.2s ease;
+}
+
+.copy-button:hover {
+  color: #1F4456;
+}
+
+.copy-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 12px 0;
+}
+
+.description-text {
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.description-text.loading {
+  color: #9ca3af;
+  font-style: italic;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Amenities */
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.amenity-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.amenity-icon {
+  font-size: 20px;
+}
+
+.amenity-text {
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Map container */
+.map-container {
+  width: 100%;
+  height: 200px;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.map-container app-map {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Reviews */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.review-card {
+  background-color: #f9fafb;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.review-stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.review-star {
+  width: 14px;
+  height: 14px;
+  color: #fbbf24;
+}
+
+.review-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 6px 0;
+}
+
+.review-text {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Footer spacer */
+.footer-spacer {
+  height: 80px;
+}
+
+/* Floating footer */
+/* Floating footer with chips */
+.floating-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-top: 1px solid #f3f4f6;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  z-index: 10;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.chips-container {
+  flex: 1;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.chips-container.chips-full-width {
+  width: 100%;
+}
+
+.chips-container::-webkit-scrollbar {
+  display: none;
+}
+
+.conversation-chip {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  scroll-snap-align: start;
+  white-space: nowrap;
+}
+
+.conversation-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.conversation-chip:active {
+  transform: translateY(0);
+}
+
+.chip-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.chip-label {
+  line-height: 1;
+}
+
+.chips-label {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.back-to-chat-button {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-to-chat-button:hover {
+  background-color: #e5e7eb;
+  transform: scale(1.05);
+}
+
+.back-to-chat-button:active {
+  transform: scale(0.95);
+}
+
+.back-icon {
+  width: 24px;
+  height: 24px;
+  color: #111827;
+}
+
+
+/* Rooms scroll container */
+.rooms-scroll-container {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0 12px 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 #f7fafc;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 16px;
+}
+
+.rooms-scroll-container app-room-card {
+  scroll-snap-align: start;
+}
+
+.rooms-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.rooms-scroll-container::-webkit-scrollbar-track {
+  background: #f7fafc;
+  border-radius: 3px;
+}
+
+.rooms-scroll-container::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+
+.rooms-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}

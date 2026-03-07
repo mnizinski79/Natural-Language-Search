@@ -1,0 +1,241 @@
+.room-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.room-card:not(.unavailable):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.room-card.unavailable {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Desktop variant - match hotel card exactly */
+.room-card-desktop {
+  width: 280px !important;
+  height: 340px !important;
+}
+
+/* Mobile variant - match hotel card exactly */
+.room-card-mobile {
+  width: 240px !important;
+  height: 300px !important;
+}
+
+/* Compact variant (for hotel detail sheets) - 25% smaller than hotel cards */
+.room-card-compact {
+  width: 210px !important;
+  height: 255px !important;
+}
+
+/* Room Image */
+.room-card-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.room-card-desktop .room-card-image {
+  height: 180px;
+}
+
+.room-card-compact .room-card-image {
+  height: 135px;
+}
+
+.room-card-mobile .room-card-image {
+  height: 150px;
+}
+
+.room-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Capacity Chip (Top Left) */
+.capacity-chip {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  color: #1a1a1a;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bed-icon,
+.person-icon {
+  width: 16px;
+  height: 16px;
+  color: #1a1a1a;
+  flex-shrink: 0;
+}
+
+.capacity-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* Room Content */
+.room-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+
+.room-card-mobile .room-card-content {
+  padding: 12px;
+}
+
+.room-card-compact .room-card-content {
+  padding: 12px;
+}
+
+/* Room Name */
+.room-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.8em;
+}
+
+.room-card-mobile .room-name {
+  font-size: 14px;
+  min-height: 2.6em;
+}
+
+.room-card-compact .room-name {
+  font-size: 14px;
+  min-height: 2.6em;
+}
+
+/* Room Description */
+.room-description {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.room-card-mobile .room-description {
+  font-size: 12px;
+}
+
+/* Highlighted Amenities (when pricing is hidden) */
+.highlighted-amenities {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.amenity-item-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+.amenity-icon-svg {
+  width: 14px;
+  height: 14px;
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
+.amenity-text-compact {
+  line-height: 1.4;
+}
+
+.more-amenities {
+  font-size: 11px;
+  color: #999;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* Price */
+.room-price {
+  margin-top: auto;
+}
+
+.price-label {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.price-strikethrough {
+  text-decoration: line-through;
+  color: #999;
+  margin-left: 4px;
+}
+
+.price-main {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.room-card-mobile .price-main {
+  font-size: 20px;
+}
+
+.room-card-compact .price-main {
+  font-size: 20px;
+}
+
+.price-currency {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+}
+
+.room-card-mobile .price-currency {
+  font-size: 12px;
+}
+
+.room-card-compact .price-currency {
+  font-size: 12px;
+}
+
+.price-breakdown {
+  font-size: 11px;
+  color: #999;
+}
