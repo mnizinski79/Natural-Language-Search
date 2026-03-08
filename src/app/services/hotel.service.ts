@@ -50,22 +50,22 @@ export class HotelService {
       brand: this.mapBrandId(raw.brandId),
       rating: raw.rating,
       location: {
-        address: raw.location.address,
+        address: raw.location?.address || '',
         neighborhood: raw.sentiment?.[0] || '',
         coordinates: {
-          lat: raw.location.lat,
-          lng: raw.location.lng
+          lat: raw.location?.lat || 0,
+          lng: raw.location?.lng || 0
         }
       },
       pricing: {
-        nightlyRate: raw.price.nightlyRate,
-        roomRate: raw.price.amount,
-        fees: raw.price.amount - raw.price.nightlyRate
+        nightlyRate: raw.price?.nightlyRate || 0,
+        roomRate: raw.price?.amount || 0,
+        fees: (raw.price?.amount || 0) - (raw.price?.nightlyRate || 0)
       },
       amenities: raw.amenities || [],
-      description: raw.description,
+      description: raw.description || '',
       imageUrls: raw.imageUrls || [],
-      phone: raw.phoneNumber,
+      phone: raw.phoneNumber || '',
       sentiment: raw.sentiment || []
     };
   }
@@ -76,6 +76,9 @@ export class HotelService {
    * @returns Standardized brand name
    */
   private mapBrandId(brandId: string): Hotel['brand'] {
+    if (!brandId) {
+      return 'Independent';
+    }
     const brandMap: Record<string, Hotel['brand']> = {
       'kimpton': 'Kimpton',
       'voco': 'voco',
