@@ -144,7 +144,7 @@ ihg-hotel-search/
 │   │   └── landing-desktop.png
 │   ├── styles.css               # Global styles
 │   └── main.ts                  # Application entry point
-├── hotels (1).json              # Hotel data
+├── hotels.json                  # Hotel data
 ├── server.js                    # Backend server
 ├── .env                         # Environment variables (create from .env.example)
 ├── .env.example                 # Environment template
@@ -290,6 +290,32 @@ npm install --legacy-peer-deps
 # Clear Angular cache
 rm -rf .angular
 ```
+
+## Deployment
+
+### Vercel Deployment
+
+This application is optimized for deployment on Vercel. See [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) for detailed deployment instructions.
+
+**Quick Deploy:**
+
+1. Install Vercel CLI: `npm i -g vercel`
+2. Login: `vercel login`
+3. Set environment variable: `vercel env add GEMINI_API_KEY`
+4. Deploy: `vercel --prod`
+
+The project includes:
+- ✅ `vercel.json` - Vercel configuration with routing and headers
+- ✅ `api/config.js` - Serverless function for API configuration
+- ✅ Optimized build budgets (2MB initial, 5MB max)
+- ✅ `.vercelignore` - Excludes unnecessary files
+
+### Other Platforms
+
+The application can be deployed to any platform that supports:
+- Static file hosting for Angular build output
+- Serverless functions or Node.js runtime for API endpoints
+- Environment variable configuration
 
 ## Contributing
 

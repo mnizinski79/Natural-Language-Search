@@ -112,7 +112,7 @@ describe('HotelService', () => {
         done();
       });
 
-      const req = httpMock.expectOne('/hotels (1).json');
+      const req = httpMock.expectOne('/hotels.json');
       expect(req.request.method).toBe('GET');
       req.flush(rawData);
     });
@@ -143,7 +143,7 @@ describe('HotelService', () => {
         });
       });
 
-      const req = httpMock.expectOne('/hotels (1).json');
+      const req = httpMock.expectOne('/hotels.json');
       req.flush(rawData);
     });
 
@@ -156,7 +156,7 @@ describe('HotelService', () => {
         }
       });
 
-      const req = httpMock.expectOne('/hotels (1).json');
+      const req = httpMock.expectOne('/hotels.json');
       req.error(new ProgressEvent('error'));
     });
   });
@@ -383,7 +383,7 @@ describe('HotelService', () => {
         done();
       });
 
-      const req = httpMock.expectOne('/hotels (1).json');
+      const req = httpMock.expectOne('/hotels.json');
       req.flush(rawData);
     });
 
@@ -409,7 +409,7 @@ describe('HotelService', () => {
         done();
       });
 
-      const req = httpMock.expectOne('/hotels (1).json');
+      const req = httpMock.expectOne('/hotels.json');
       req.flush(rawData);
     });
   });

@@ -24,7 +24,7 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`  - Local:   http://localhost:${PORT}`);
   console.log(`  - Network: http://192.168.4.76:${PORT}`);
   console.log(`\nConfig endpoint: http://localhost:${PORT}/api/config`);
-  console.log(`Hotels data: http://localhost:${PORT}/hotels%20(1).json`);
+  console.log(`Hotels data: http://localhost:${PORT}/hotels.json`);
   console.log(`\nTo set your Gemini API key, use:`);
   console.log(`GEMINI_API_KEY=your_key_here node server.js`);
 });
