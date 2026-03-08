@@ -4,11 +4,16 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { AppConfig } from '../models';
 
+export interface AppConfigExtended extends AppConfig {
+  passwordProtected?: boolean;
+  appPassword?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigService {
-  private configCache: AppConfig | null = null;
+  private configCache: AppConfigExtended | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -18,14 +23,18 @@ export class ConfigService {
    * @returns Observable of AppConfig containing API keys and settings
    * @throws Error if configuration cannot be loaded from server
    */
-  loadConfig(): Observable<AppConfig> {
+  loadConfig(): Observable<AppConfigExtended> {
     if (this.configCache) {
       return of(this.configCache);
     }
 
-    return this.http.get<AppConfig>('/api/config').pipe(
+    return this.http.get<AppConfigExtended>('/api/config').pipe(
       tap(config => {
         this.configCache = config;
+        // Store password in session storage if password protection is enabled
+        if (config.passwordProtected && config.appPassword) {
+          sessionStorage.setItem('app_password', config.appPassword);
+        }
       }),
       catchError(error => {
         console.error('Failed to load configuration:', error);
@@ -41,5 +50,13 @@ export class ConfigService {
    */
   getApiKey(): string | null {
     return this.configCache?.geminiApiKey || null;
+  }
+
+  /**
+   * Check if password protection is enabled
+   * @returns True if password protection is enabled
+   */
+  isPasswordProtected(): boolean {
+    return this.configCache?.passwordProtected || false;
   }
 }

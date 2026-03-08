@@ -13,6 +13,8 @@ export default function handler(req, res) {
 
   // Return configuration
   res.status(200).json({
-    geminiApiKey: process.env.GEMINI_API_KEY || 'YOUR_API_KEY_HERE'
+    geminiApiKey: process.env.GEMINI_API_KEY || 'YOUR_API_KEY_HERE',
+    passwordProtected: process.env.PASSWORD_PROTECTED === 'true',
+    appPassword: process.env.APP_PASSWORD || ''
   });
 }

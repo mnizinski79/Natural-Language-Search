@@ -6,6 +6,7 @@ import { map, startWith, distinctUntilChanged, shareReplay, take, switchMap } fr
 import { DesktopLayoutComponent } from './components/desktop-layout.component';
 import { MobileLayoutComponent } from './components/mobile-layout.component';
 import { LandingComponent } from './components/landing.component';
+import { PasswordGateComponent } from './components/password-gate.component';
 import { HotelService } from './services/hotel.service';
 import { AIService } from './services/ai.service';
 import { ConversationService } from './services/conversation.service';
@@ -16,12 +17,18 @@ import { Room } from './models/room.model';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, DesktopLayoutComponent, MobileLayoutComponent, LandingComponent],
+  imports: [CommonModule, DesktopLayoutComponent, MobileLayoutComponent, LandingComponent, PasswordGateComponent],
   template: `
     <div class="app-container">
+      <!-- Password Gate (only shows if password protection is enabled and not authenticated) -->
+      <app-password-gate
+        *ngIf="showPasswordGate"
+        (authenticated)="onAuthenticated()"
+      ></app-password-gate>
+
       <!-- Landing Screen -->
       <app-landing
-        *ngIf="showLanding"
+        *ngIf="showLanding && !showPasswordGate"
         [visible]="showLanding"
         (messageSent)="onMessageSent($event)"
         (dismissed)="onLandingDismissed()"
@@ -29,7 +36,7 @@ import { Room } from './models/room.model';
       
       <!-- Desktop Layout -->
       <app-desktop-layout
-        *ngIf="!showLanding && !(isMobile$ | async)"
+        *ngIf="!showLanding && !(isMobile$ | async) && !showPasswordGate"
         [messages]="messages"
         [isThinking]="isThinking"
         [hotels]="currentHotels"
@@ -54,7 +61,7 @@ import { Room } from './models/room.model';
       
       <!-- Mobile Layout -->
       <app-mobile-layout
-        *ngIf="!showLanding && (isMobile$ | async)"
+        *ngIf="!showLanding && (isMobile$ | async) && !showPasswordGate"
         [messages]="messages"
         [isThinking]="isThinking"
         [hotels]="currentHotels"
@@ -93,6 +100,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // State
   showLanding = true;
+  showPasswordGate = false;
   allHotels: Hotel[] = [];
   currentHotels: Hotel[] = [];
   messages: Message[] = [];
@@ -139,6 +147,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.configService.loadConfig().subscribe({
       next: (config) => {
         console.log('✅ Configuration loaded successfully');
+        
+        // Check if password protection is enabled and user is not authenticated
+        const isAuthenticated = sessionStorage.getItem('app_authenticated') === 'true';
+        if (this.configService.isPasswordProtected() && !isAuthenticated) {
+          this.showPasswordGate = true;
+        }
       },
       error: (error) => {
         console.error('❌ Failed to load configuration:', error);
@@ -878,6 +892,13 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   onLandingDismissed(): void {
     this.showLanding = false;
+  }
+
+  /**
+   * Handle successful authentication
+   */
+  onAuthenticated(): void {
+    this.showPasswordGate = false;
   }
 
   /**
